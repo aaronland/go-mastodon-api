@@ -1,6 +1,6 @@
 # go-mastodon-api
 
-Opinionated and minimalist Go package for working with the Mastodon API.
+Minimalist and opinionated and minimalist Go package for working with the Mastodon API.
 
 _This is work in progress. When finished its design will be similar to the design of the [aaronland/go-flickr-api](https://github.com/aaronland/go-flickr-api#design) package. Depending on what you are trying to do you may have more luck with [mattn/go-mastodon](https://github.com/mattn/go-mastodon)._
 
