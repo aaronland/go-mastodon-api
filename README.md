@@ -59,8 +59,7 @@ $> ./bin/api \
           "accounts": "0"
         },
 	... and so on
-
-
+```
 
 ### post
 
