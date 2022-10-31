@@ -2,7 +2,7 @@
 
 Opinionated and minimalist Go package for working with the Mastodon API.
 
-_This is work in progress. Depending on what you are trying to do you may have more luck with [mattn/go-mastodon](https://github.com/mattn/go-mastodon)._
+_This is work in progress. When finished its design will be similar to the design of the [aaronland/go-flickr-api](https://github.com/aaronland/go-flickr-api#design) package. Depending on what you are trying to do you may have more luck with [mattn/go-mastodon](https://github.com/mattn/go-mastodon)._
 
 ## Documentation
 
@@ -57,7 +57,7 @@ oauth2://:S33KRET@mastodon.example
 
 Notes, as of this writing:
 
-* There is only one scheme: `oauth2`.
+* There is only one valid scheme for client URIs: `oauth2`.
 * There are no methods for doing the OAuth2 access token flow. It is assumed that you have created one by some other means (for example, by generating a new application and access token in the Mastodon web interface). 
 
 ## See also
