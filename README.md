@@ -114,7 +114,7 @@ Under the hood this package uses the [sfomuseum/runtimevar](https://github.com/s
 * [Local](https://gocloud.dev/howto/runtimevar/#local)
 * [AWS Parameter Store](https://gocloud.dev/howto/runtimevar/#awsps)
 
-If you need to import a different implementation you will need to clone the relevant tool and add your custom import statement. For example, to use the `post` tool with the GCP Secret Manager `runtimevar` implementation you would do:
+If you need to import a different implementation you will need to clone the relevant tool and add your custom import statement. For example, to use the `post` tool with [the GCP Secret Manager `runtimevar` implementation](https://gocloud.dev/howto/runtimevar/#gcpsm) you would do:
 
 ```
 package main
