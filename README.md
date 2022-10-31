@@ -108,7 +108,7 @@ Notes, as of this writing:
 
 ## Runtimevar URIs
 
-Under the hood this package uses the [sfomuseum/runtimevar](https://github.com/sfomuseum/runtimevar) package. By default it imports the following `runtimevar` implementations:
+Under the hood this package uses the [sfomuseum/runtimevar](https://github.com/sfomuseum/runtimevar) package. By default it imports the following [gocloud.dev/runtimevar](https://gocloud.dev/howto/runtimevar) implementations:
 
 * [Constant](https://gocloud.dev/howto/runtimevar/#constant)
 * [Local](https://gocloud.dev/howto/runtimevar/#local)
