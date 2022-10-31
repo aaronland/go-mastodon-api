@@ -41,6 +41,25 @@ $> ./bin/post \
 109259899346500374 109259899212388461
 ```
 
+## Client URIs
+
+Client URIs take the form of:
+
+```
+{SCHEME}://:{ACCESS_TOKEN}@{MASTODON_HOST}
+```
+
+For example:
+
+```
+oauth2://:S33KRET@mastodon.example
+```
+
+Notes, as of this writing:
+
+* There is only one scheme: `oauth2`.
+* There are no methods for doing the OAuth2 access token flow. It is assumed that you have created one by some other means (for example, by generating a new application and access token in the Mastodon web interface). 
+
 ## See also
 
 * https://gocloud.dev/runtimevar
