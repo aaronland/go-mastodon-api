@@ -7,6 +7,7 @@ import (
 	"io"
 )
 
+// Id attempts to derive the value of a top-level "id" JSON-encoded property (key) from 'r'.
 func Id(ctx context.Context, r io.ReadSeeker) (string, error) {
 
 	defer r.Seek(0, 0)
