@@ -106,6 +106,39 @@ Notes, as of this writing:
 * There is only one valid scheme for client URIs: `oauth2`.
 * There are no methods for doing the OAuth2 access token flow. It is assumed that you have created one by some other means (for example, by generating a new application and access token in the Mastodon web interface). 
 
+## Runtimevar URIs
+
+Under the hood this package uses the [sfomuseum/runtimevar](https://github.com/sfomuseum/runtimevar) package. By default it imports the following `runtimevar` implementations:
+
+* [Constant](https://gocloud.dev/howto/runtimevar/#constant)
+* [Local](https://gocloud.dev/howto/runtimevar/#local)
+* [AWS Parameter Store](https://gocloud.dev/howto/runtimevar/#awsps)
+
+If you need to import a different implementation you will need to clone the relevant tool and add your custom import statement. For example, to use the `post` tool with the GCP Secret Manager `runtimevar` implementation you would do:
+
+```
+package main
+
+import (
+	"context"
+	"github.com/aaronland/go-mastodon-api/app/post"
+	_ "gocloud.dev/runtimevar/gcpsecretmanager"
+	"log"
+)
+
+func main() {
+
+	ctx := context.Background()
+	logger := log.Default()
+
+	err := post.Run(ctx, logger)
+
+	if err != nil {
+		logger.Fatalf("Failed to run application, %v", err)
+	}
+}
+```
+
 ## See also
 
 * https://gocloud.dev/runtimevar
