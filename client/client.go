@@ -74,9 +74,9 @@ func Schemes() []string {
 
 // Create a new instance of the Client interface. Client instances are created by
 // passing in a context.Context instance and a URI string. The form and substance of
-// URI strings are specific to their implementations. For example to create a OAuth1Client
+// URI strings are specific to their implementations. For example to create a OAuth2Client
 // you would write:
-// cl, err := client.NewClient(ctx, "oauth1://?consumer_key={KEY}&consumer_secret={SECRET}")
+// cl, err := client.NewClient(ctx, "oauth2://:{ACCESS_TOKEN}@{MASTODON_HOST}")
 func NewClient(ctx context.Context, uri string) (Client, error) {
 
 	// To account for things that might be gocloud.dev/runtimevar-encoded
