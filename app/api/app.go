@@ -4,9 +4,8 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	"github.com/aaronland/go-mastodon-api/client"
+	"github.com/aaronland/go-mastodon-api/app"
 	"github.com/sfomuseum/go-flags/flagset"
-	"github.com/sfomuseum/runtimevar"
 	"io"
 	"log"
 	"net/url"
@@ -22,22 +21,10 @@ func RunWithFlagSet(ctx context.Context, fs *flag.FlagSet, logger *log.Logger) e
 
 	flagset.Parse(fs)
 
-	client_uri, err := runtimevar.StringVar(ctx, client_runtimevar_uri)
+	cl, err := app.NewClient(ctx, client_runtimevar_uri, logger)
 
 	if err != nil {
-		return fmt.Errorf("Failed to derive client uri, %v", err)
-	}
-
-	cl, err := client.NewClient(ctx, client_uri)
-
-	if err != nil {
-		return fmt.Errorf("Failed to create client, %v", err)
-	}
-
-	err = cl.SetLogger(ctx, logger)
-
-	if err != nil {
-		return fmt.Errorf("Failed to set logger, %w", err)
+		return fmt.Errorf("Failed to create new client, %w", err)
 	}
 
 	args := &url.Values{}

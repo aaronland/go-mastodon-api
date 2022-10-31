@@ -104,32 +104,10 @@ func (cl *OAuth2Client) upload(ctx context.Context, r io.Reader, args *url.Value
 		return nil, err
 	}
 
-	// This is what I would like to do (see notes in upload.go)
-
-	/*
-		boundary, err := randomBoundary()
-
-		if err != nil {
-			return nil, err
-		}
-
-		r, w := io.Pipe()
-
-		ctx, cancel := context.WithCancel(ctx)
-		defer cancel()
-
-		go func() {
-
-			err := streamUploadBody(ctx, w, "file", boundary, r, args)
-
-			if err != nil {
-				log.Printf("Failed to stream upload body for file, %v", err)
-				cancel()
-			}
-		}()
-	*/
-
-	// This is what we do instead (womp womp...)
+	// I would prefer to stream 'r' using an io.PipeWriter the way things work in
+	// https://github.com/aaronland/go-flickr-api/blob/main/client/oauth1.go#L297-L319
+	// but it always fails here with HTTP2 / peer / streaming errors that I don't
+	// really understand.
 
 	var buf bytes.Buffer
 	mw := multipart.NewWriter(&buf)
