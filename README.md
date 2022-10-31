@@ -11,9 +11,56 @@ Documentation is incomplete at this time.
 ## Tools
 
 ```
-$> make cli
+> make cli
 go build -mod vendor -o bin/post cmd/post/main.go
+go build -mod vendor -o bin/api cmd/api/main.go
 ```
+
+### api
+
+```
+$> ./bin/api -h
+  -api-method string
+    	A valid Mastodon API endpoint.
+  -client-uri string
+    	A valid gocloud.dev/runtimevar URI that resolves to a valid aaronland/go-mastodon-api/client URI.
+  -http-method string
+    	The HTTP method to issue for the API method. (default "GET")
+  -param value
+    	Zero or more {KEY}={VALUE} API parameter pairs to include with the API request.
+```
+
+For example:
+
+```
+$> ./bin/api \
+	-client-uri 'file:///usr/local/mastodon/account-uri' \
+	-api-method /api/v2/search \
+	-param q=caturday \
+	-param limit=1 \
+	| jq
+	
+{
+  "accounts": [],
+  "statuses": [],
+  "hashtags": [
+    {
+      "name": "cáturday",
+      "url": "https://mastodon.cloud/tags/c%C3%A1turday",
+      "history": [
+        {
+          "day": "1667174400",
+          "uses": "0",
+          "accounts": "0"
+        },
+        {
+          "day": "1667088000",
+          "uses": "0",
+          "accounts": "0"
+        },
+	... and so on
+
+
 
 ### post
 
