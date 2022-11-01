@@ -22,6 +22,7 @@ func init() {
 	}
 }
 
+// OAuth2Client implements the `Client` interface using OAuth2 access tokens for authentication and authorization.
 type OAuth2Client struct {
 	http_client  *http.Client
 	api_endpoint *url.URL
@@ -29,12 +30,16 @@ type OAuth2Client struct {
 	logger       *log.Logger
 }
 
+// NewOAuth2Client returns a new `OAuth2Client` instance configured by 'uri' which is expected to take
+// the form of:
+//
+//	oauth2://:{OAUTH2_ACCESS_TOKEN}@{MASTODON_HOST}
 func NewOAuth2Client(ctx context.Context, uri string) (Client, error) {
 
 	u, err := url.Parse(uri)
 
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("Failed to parse URI, %w", err)
 	}
 
 	mastodon_url := fmt.Sprintf("https://%s", u.Host)
@@ -64,17 +69,14 @@ func NewOAuth2Client(ctx context.Context, uri string) (Client, error) {
 	return cl, nil
 }
 
-func (cl *OAuth2Client) SetLogger(ctx context.Context, logger *log.Logger) error {
-	cl.logger = logger
-	return nil
-}
-
+// ExecuteMethod will execute a Mastodon API method where 'api_method' is expected to be the
+// relative URI for a given Mastodon API method.
 func (cl *OAuth2Client) ExecuteMethod(ctx context.Context, http_method string, api_method string, args *url.Values) (io.ReadSeekCloser, error) {
 
 	req_endpoint, err := cl.requestEndpoint(ctx, api_method)
 
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("Failed to derive API request endpoint, %w", err)
 	}
 
 	req_endpoint.RawQuery = args.Encode()
@@ -82,15 +84,21 @@ func (cl *OAuth2Client) ExecuteMethod(ctx context.Context, http_method string, a
 	req, err := http.NewRequest(http_method, req_endpoint.String(), nil)
 
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("Failed to create API request, %w", err)
 	}
 
 	return cl.call(ctx, req)
 }
 
+// UploadMedia will upload the contents of 'r' as a media element using the Mastodon API.
 func (cl *OAuth2Client) UploadMedia(ctx context.Context, r io.Reader, args *url.Values) (io.ReadSeekCloser, error) {
-
 	return cl.upload(ctx, r, args)
+}
+
+// SetLogger assigns 'logger' to 'cl'
+func (cl *OAuth2Client) SetLogger(ctx context.Context, logger *log.Logger) error {
+	cl.logger = logger
+	return nil
 }
 
 func (cl *OAuth2Client) upload(ctx context.Context, r io.Reader, args *url.Values) (io.ReadSeekCloser, error) {
@@ -101,7 +109,7 @@ func (cl *OAuth2Client) upload(ctx context.Context, r io.Reader, args *url.Value
 	req_endpoint, err := cl.requestEndpoint(ctx, api_method)
 
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("Failed to derive API request endpoint, %w", err)
 	}
 
 	// I would prefer to stream 'r' using an io.PipeWriter the way things work in
@@ -170,7 +178,7 @@ func (cl *OAuth2Client) requestEndpoint(ctx context.Context, api_method string) 
 	req_endpoint, err := url.Parse(cl.api_endpoint.String())
 
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("Failed to parse API endpoint, %w", err)
 	}
 
 	req_endpoint.Path = api_method

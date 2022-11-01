@@ -8,8 +8,6 @@ _This is work in progress. When finished its design will be similar to the desig
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/aaronland/go-mastodon-api.svg)](https://pkg.go.dev/github.com/aaronland/go-mastodon-api)
 
-_Documentation is incomplete at this time._
-
 ## Design
 
 The core of this package's approach to the Mastodon API is the `ExecuteMethod` method (which is defined in the `client.Client` interface) whose signature looks like this:
@@ -48,8 +46,14 @@ go build -mod vendor -o bin/api cmd/api/main.go
 
 ### api
 
+Perform an API request against an Mastodon API endpoint.
+
 ```
 $> ./bin/api -h
+Perform an API request against an Mastodon API endpoint.
+Usage:
+	 ./bin/api [options]
+Valid options are:
   -api-method string
     	A valid Mastodon API endpoint.
   -client-uri string
@@ -93,8 +97,14 @@ $> ./bin/api \
 
 ### post
 
+Post a message, with zero or more media attachments, to a Mastodon API endpoint.
+
 ```
 $> ./bin/post -h
+Post a message, with zero or more media attachments, to a Mastodon API endpoint.
+Usage:
+	 ./bin/post [options]
+Valid options are:
   -client-uri string
     	A valid gocloud.dev/runtimevar URI that resolves to a valid aaronland/go-mastodon-api/client URI.
   -media value

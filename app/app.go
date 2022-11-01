@@ -8,6 +8,8 @@ import (
 	"log"
 )
 
+// NewClient will return a new `client.Client` instance whose URI constructor will be derived from 'client_runtimevar_uri'
+// and configured to use 'logger'.
 func NewClient(ctx context.Context, client_runtimevar_uri string, logger *log.Logger) (client.Client, error) {
 
 	client_uri, err := runtimevar.StringVar(ctx, client_runtimevar_uri)

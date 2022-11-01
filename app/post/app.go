@@ -11,14 +11,22 @@ import (
 	"strings"
 )
 
+// Run will execute the 'post' commandline application with default flags.
 func Run(ctx context.Context, logger *log.Logger) error {
 	fs := DefaultFlagSet()
 	return RunWithFlagSet(ctx, fs, logger)
 }
 
+// Run will execute the 'post' commandline application with 'fs'.
 func RunWithFlagSet(ctx context.Context, fs *flag.FlagSet, logger *log.Logger) error {
 
 	flagset.Parse(fs)
+
+	err := flagset.SetFlagsFromEnvVars(fs, "MASTODON")
+
+	if err != nil {
+		return fmt.Errorf("Failed to set flags from environment variables, %w", err)
+	}
 
 	cl, err := app.NewClient(ctx, client_runtimevar_uri, logger)
 
