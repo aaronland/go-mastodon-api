@@ -1,3 +1,4 @@
+// Package client provides a common interface for accessing the Mastodon API.
 package client
 
 import (
@@ -11,9 +12,15 @@ import (
 	"strings"
 )
 
+// Client is the interface that defines common methods for all Mastodon API Client implementations.
+// Currently there is only a single implementation that calls the Mastodon API using the OAuth2
+// authentication and authorization scheme but it is assumed that eventually there will be others.
 type Client interface {
+	// Execute a Mastodon API method.
 	ExecuteMethod(context.Context, string, string, *url.Values) (io.ReadSeekCloser, error)
+	// Upload an io.Reader instance using the Mastodon API.
 	UploadMedia(context.Context, io.Reader, *url.Values) (io.ReadSeekCloser, error)
+	// Assign a specific log.Logger instance for logging events.
 	SetLogger(context.Context, *log.Logger) error
 }
 

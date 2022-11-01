@@ -6,7 +6,37 @@ _This is work in progress. When finished its design will be similar to the desig
 
 ## Documentation
 
-Documentation is incomplete at this time.
+[![Go Reference](https://pkg.go.dev/badge/github.com/aaronland/go-mastodon-api.svg)](https://pkg.go.dev/github.com/aaronland/go-mastodon-api)
+
+_Documentation is incomplete at this time._
+
+## Design
+
+The core of this package's approach to the Mastodon API is the `ExecuteMethod` method (which is defined in the `client.Client` interface) whose signature looks like this:
+
+```
+ExecuteMethod(context.Context, string, string, *url.Values) (io.ReadSeekCloser, error)
+```
+
+In time there may be others, along with helper methods for unmarshaling API responses in to typed responses but the baseline for all operations will remain: Query paramters (`url.Values`) sent over HTTP returning an `io.ReadSeekCloser` instance that is inspected and validated according to the needs and uses of the tools using the Mastodon API.
+
+### Pagination
+
+This package does not provide any methods for dealing with pagination since there don't appear to be any common patterns in the Mastodon API from which pagination methods can be derived. Maybe some day?
+
+## Clients
+
+The `client.Client` interface provides for common methods for accessing the Mastodon API. Currently there is only a single client interface that calls the Mastodon API using the OAuth2 authentication and authorization scheme but it is assumed that eventually there will be others.
+
+Clients are instantiated using a URI-based syntax where the scheme and query parameters map to specific implementation details.
+
+### OAuth2
+
+The OAuth2 `Client` implementation is instantiated using the `oauth2://` scheme. For example:
+
+```
+oauth2://:{ACCESS_TOKEN}@{MASTODON_HOST}
+```
 
 ## Tools
 

@@ -14,6 +14,8 @@ var http_method string
 
 var api_method string
 
+var paginated bool
+
 func DefaultFlagSet() *flag.FlagSet {
 
 	fs := flagset.NewFlagSet("mastodon")
@@ -24,5 +26,6 @@ func DefaultFlagSet() *flag.FlagSet {
 	fs.StringVar(&api_method, "api-method", "", "A valid Mastodon API endpoint.")
 	fs.Var(&params, "param", "Zero or more {KEY}={VALUE} API parameter pairs to include with the API request.")
 
+	fs.BoolVar(&paginated, "paginated", false, "Automatically paginate (and iterate through) all results.")
 	return fs
 }
