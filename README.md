@@ -2,11 +2,42 @@
 
 Minimalist and opinionated Go package for working with the Mastodon API.
 
-_This is work in progress. When finished its design will be similar to the design of the [aaronland/go-flickr-api](https://github.com/aaronland/go-flickr-api#design) package. Depending on what you are trying to do you may have more luck with [mattn/go-mastodon](https://github.com/mattn/go-mastodon)._
-
 ## Documentation
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/aaronland/go-mastodon-api.svg)](https://pkg.go.dev/github.com/aaronland/go-mastodon-api)
+
+## Example
+
+```
+package main
+
+import (
+	"context"
+	"github.com/aaronland/go-mastodon-api/client"
+	"io"
+	"net/url"
+	"os"
+)
+
+func main() {
+
+	ctx := context.Background()     
+	
+	cl, _ := client.NewClient(ctx, "oauth2:/:s33kret@mastodon.example")
+
+	http_method := "GET"
+	api_method := "/api/v2/search"
+	
+	args := &url.Values{}
+	args.Set("q", "kittens")
+	
+	rsp, _ := cl.ExecuteMethod(ctx, http_method, api_method, args)
+	io.Copy(os.Stdout, rsp)
+}
+
+```
+
+_Error handling omitted for the sake of brevity._
 
 ## Design
 
@@ -17,6 +48,8 @@ ExecuteMethod(context.Context, string, string, *url.Values) (io.ReadSeekCloser, 
 ```
 
 In time there may be others, along with helper methods for unmarshaling API responses in to typed responses but the baseline for all operations will remain: Query paramters (`url.Values`) sent over HTTP returning an `io.ReadSeekCloser` instance that is inspected and validated according to the needs and uses of the tools using the Mastodon API.
+
+Depending on what you are trying to do you may have more luck with [mattn/go-mastodon](https://github.com/mattn/go-mastodon).
 
 ### Pagination
 
@@ -39,7 +72,7 @@ oauth2://:{ACCESS_TOKEN}@{MASTODON_HOST}
 ## Tools
 
 ```
-> make cli
+$> make cli
 go build -mod vendor -o bin/post cmd/post/main.go
 go build -mod vendor -o bin/api cmd/api/main.go
 ```
