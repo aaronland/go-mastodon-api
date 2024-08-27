@@ -13,10 +13,11 @@ package main
 
 import (
 	"context"
-	"github.com/aaronland/go-mastodon-api/client"
 	"io"
 	"net/url"
 	"os"
+
+	"github.com/aaronland/go-mastodon-api/client"
 )
 
 func main() {
@@ -194,20 +195,19 @@ package main
 
 import (
 	"context"
+	"log"
+
 	"github.com/aaronland/go-mastodon-api/app/post"
 	_ "gocloud.dev/runtimevar/gcpsecretmanager"
-	"log"
 )
 
 func main() {
 
 	ctx := context.Background()
-	logger := log.Default()
-
-	err := post.Run(ctx, logger)
+	err := post.Run(ctx)
 
 	if err != nil {
-		logger.Fatalf("Failed to run application, %v", err)
+		log.Fatalf("Failed to run application, %v", err)
 	}
 }
 ```
