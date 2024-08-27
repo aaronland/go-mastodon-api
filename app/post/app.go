@@ -4,21 +4,22 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"log/slog"
+	"strings"
+
 	"github.com/aaronland/go-mastodon-api/app"
 	"github.com/aaronland/go-mastodon-api/client"
 	"github.com/sfomuseum/go-flags/flagset"
-	"log"
-	"strings"
 )
 
 // Run will execute the 'post' commandline application with default flags.
-func Run(ctx context.Context, logger *log.Logger) error {
+func Run(ctx context.Context) error {
 	fs := DefaultFlagSet()
-	return RunWithFlagSet(ctx, fs, logger)
+	return RunWithFlagSet(ctx, fs)
 }
 
 // Run will execute the 'post' commandline application with 'fs'.
-func RunWithFlagSet(ctx context.Context, fs *flag.FlagSet, logger *log.Logger) error {
+func RunWithFlagSet(ctx context.Context, fs *flag.FlagSet) error {
 
 	flagset.Parse(fs)
 
@@ -28,7 +29,12 @@ func RunWithFlagSet(ctx context.Context, fs *flag.FlagSet, logger *log.Logger) e
 		return fmt.Errorf("Failed to set flags from environment variables, %w", err)
 	}
 
-	cl, err := app.NewClient(ctx, client_runtimevar_uri, logger)
+	if verbose {
+		slog.SetLogLoggerLevel(slog.LevelDebug)
+		slog.Debug("Verbose logging enabled")
+	}
+
+	cl, err := app.NewClient(ctx, client_runtimevar_uri)
 
 	if err != nil {
 		return fmt.Errorf("Failed to create new client, %w", err)

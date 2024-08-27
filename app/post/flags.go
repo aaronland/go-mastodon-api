@@ -3,9 +3,10 @@ package post
 import (
 	"flag"
 	"fmt"
+	"os"
+
 	"github.com/sfomuseum/go-flags/flagset"
 	"github.com/sfomuseum/go-flags/multi"
-	"os"
 )
 
 // A valid gocloud.dev/runtimevar URI that resolves to a valid aaronland/go-mastodon-api/client URI.
@@ -20,6 +21,8 @@ var visibility string
 // One or paths to local files to append to the post.
 var media multi.MultiString
 
+var verbose bool
+
 // DefaultFlagSet returns a `flag.FlagSet` instance configured with flags for running the 'post' application.
 func DefaultFlagSet() *flag.FlagSet {
 
@@ -30,6 +33,7 @@ func DefaultFlagSet() *flag.FlagSet {
 	fs.StringVar(&visibility, "public", "", "The visibility of the post.")
 
 	fs.Var(&media, "media", "One or paths to local files to append to the post.")
+	fs.BoolVar(&verbose, "verbose", false, "Enable verbose (debug) logging.")
 
 	fs.Usage = func() {
 		fmt.Fprintf(os.Stderr, "Post a message, with zero or more media attachments, to a Mastodon API endpoint.\n")

@@ -4,12 +4,12 @@ package client
 import (
 	"context"
 	"fmt"
-	"github.com/aaronland/go-roster"
 	"io"
-	"log"
 	"net/url"
 	"sort"
 	"strings"
+
+	"github.com/aaronland/go-roster"
 )
 
 // Client is the interface that defines common methods for all Mastodon API Client implementations.
@@ -20,8 +20,6 @@ type Client interface {
 	ExecuteMethod(context.Context, string, string, *url.Values) (io.ReadSeekCloser, error)
 	// Upload an io.Reader instance using the Mastodon API.
 	UploadMedia(context.Context, io.Reader, *url.Values) (io.ReadSeekCloser, error)
-	// Assign a specific log.Logger instance for logging events.
-	SetLogger(context.Context, *log.Logger) error
 }
 
 var clients roster.Roster

@@ -2,18 +2,17 @@ package main
 
 import (
 	"context"
-	"github.com/aaronland/go-mastodon-api/app/post"
 	"log"
+
+	"github.com/aaronland/go-mastodon-api/app/post"
 )
 
 func main() {
 
 	ctx := context.Background()
-	logger := log.Default()
-
-	err := post.Run(ctx, logger)
+	err := post.Run(ctx)
 
 	if err != nil {
-		logger.Fatalf("Failed to run application, %v", err)
+		log.Fatalf("Failed to run application, %v", err)
 	}
 }

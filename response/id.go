@@ -3,8 +3,9 @@ package response
 import (
 	"context"
 	"fmt"
-	"github.com/tidwall/gjson"
 	"io"
+
+	"github.com/tidwall/gjson"
 )
 
 // Id derives the value of a top-level "id" JSON-encoded property (key) from 'r'.

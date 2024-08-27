@@ -3,8 +3,9 @@ package client
 import (
 	"context"
 	"fmt"
-	"github.com/aaronland/go-mastodon-api/response"
 	"os"
+
+	"github.com/aaronland/go-mastodon-api/response"
 )
 
 type uploadResponse struct {

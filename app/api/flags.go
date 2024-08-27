@@ -3,9 +3,10 @@ package api
 import (
 	"flag"
 	"fmt"
+	"os"
+
 	"github.com/sfomuseum/go-flags/flagset"
 	"github.com/sfomuseum/go-flags/multi"
-	"os"
 )
 
 // A valid gocloud.dev/runtimevar URI that resolves to a valid aaronland/go-mastodon-api/client URI.
@@ -20,6 +21,8 @@ var http_method string
 // A valid Mastodon API endpoint.
 var api_method string
 
+var verbose bool
+
 // DefaultFlagSet returns a `flag.FlagSet` instance configured with flags for running the 'api' application.
 func DefaultFlagSet() *flag.FlagSet {
 
@@ -30,6 +33,8 @@ func DefaultFlagSet() *flag.FlagSet {
 	fs.StringVar(&http_method, "http-method", "GET", "The HTTP method to issue for the API method.")
 	fs.StringVar(&api_method, "api-method", "", "A valid Mastodon API endpoint.")
 	fs.Var(&params, "param", "Zero or more {KEY}={VALUE} API parameter pairs to include with the API request.")
+
+	fs.BoolVar(&verbose, "verbose", false, "Enable verbose (debug) logging.")
 
 	fs.Usage = func() {
 		fmt.Fprintf(os.Stderr, "Perform an API request against an Mastodon API endpoint.\n")

@@ -4,12 +4,13 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/whosonfirst/go-ioutil"
 	"io"
 	"log"
 	"mime/multipart"
 	"net/http"
 	"net/url"
+
+	"github.com/whosonfirst/go-ioutil"
 )
 
 func init() {
