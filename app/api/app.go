@@ -9,7 +9,7 @@ import (
 	"net/url"
 	"os"
 
-	"github.com/aaronland/go-mastodon-api/app"
+	"github.com/aaronland/go-mastodon-api/v2/app"
 	"github.com/sfomuseum/go-flags/flagset"
 )
 

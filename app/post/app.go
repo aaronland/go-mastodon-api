@@ -7,8 +7,8 @@ import (
 	"log/slog"
 	"strings"
 
-	"github.com/aaronland/go-mastodon-api/app"
-	"github.com/aaronland/go-mastodon-api/client"
+	"github.com/aaronland/go-mastodon-api/v2/app"
+	"github.com/aaronland/go-mastodon-api/v2/client"
 	"github.com/sfomuseum/go-flags/flagset"
 )
 

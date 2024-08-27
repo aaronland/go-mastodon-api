@@ -1,4 +1,4 @@
-module github.com/aaronland/go-mastodon-api
+module github.com/aaronland/go-mastodon-api/v2
 
 go 1.23
 

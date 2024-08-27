@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/aaronland/go-mastodon-api/response"
+	"github.com/aaronland/go-mastodon-api/v2/response"
 )
 
 // Post is a helper method to use 'cl' to post a message to Mastodon with 'post' and 'visibility' and zero or more media files.

@@ -4,7 +4,7 @@ import (
 	"context"
 	"log"
 
-	"github.com/aaronland/go-mastodon-api/app/post"
+	"github.com/aaronland/go-mastodon-api/v2/app/post"
 )
 
 func main() {

@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/aaronland/go-mastodon-api/client"
+	"github.com/aaronland/go-mastodon-api/v2/client"
 	"github.com/sfomuseum/runtimevar"
 )
 

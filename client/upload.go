@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/aaronland/go-mastodon-api/response"
+	"github.com/aaronland/go-mastodon-api/v2/response"
 )
 
 type uploadResponse struct {
